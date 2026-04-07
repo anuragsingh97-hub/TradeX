@@ -10,11 +10,11 @@ function Footer() {
             <p>
               &copy; 2010 - 2024, Not Zerodha Broking Ltd. All rights reserved.
             </p>
-            <i class="fa-brands fa-twitter fs-4" ></i> &nbsp;
-            <i class="fa-brands fa-square-facebook fs-4"></i> &nbsp;
-            <i class="fa-brands fa-instagram fs-4"></i>&nbsp;
-            <i class="fa-brands fa-square-linkedin fs-4"></i>&nbsp;
-            <i class="fa-brands fa-telegram fs-4"></i>
+            <i className="fa-brands fa-twitter fs-4" ></i> &nbsp;
+            <i className="fa-brands fa-square-facebook fs-4"></i> &nbsp;
+            <i className="fa-brands fa-instagram fs-4"></i>&nbsp;
+            <i className="fa-brands fa-square-linkedin fs-4"></i>&nbsp;
+            <i className="fa-brands fa-telegram fs-4"></i>
           </div>
           <div className="col">
             <p className="ak">Company</p>
