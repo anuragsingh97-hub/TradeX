@@ -1,0 +1,82 @@
+/* tickets */
+.tickets-box {
+  border: 0.2px solid #f0f0f0;
+  background: #fff;
+  position: absolute;
+  width: 850px;
+
+  transition: transform 0.2s ease-in-out;
+
+}
+
+.tickets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+  background: #ffffff;
+}
+
+.icon-box {
+  width: 40px;
+  height: 40px;
+  background: #eef2f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+}
+
+.arrow.rotate {
+  transform: rotate(180deg);
+}
+
+.tickets-box:hover {
+ transform: scale(1.02);   /* zoom in */
+}
+
+/* Content animation */
+.tickets-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease;
+  padding: 0 15px;
+  width: 850px;
+  margin-top: 70px;
+  
+}
+
+.tickets-content.show {
+  max-height: 400px;
+  
+  
+}
+
+/* Right side */
+.notice-box {
+  background: #f7e7d3;
+  border-left: 9px solid orange;
+  padding: 15px;
+  width: 390px;
+  margin-left: 15px;
+}
+
+.notice-box li a:hover{
+  color: black;
+}
+.tickets-link{
+  margin-left: 30px;
+}
+.tickets-link a li{
+  padding-top: 20px;
+  font-size: 1.1rem;
+}
+
+.tickets-link a li:hover{
+  color: black;
+}

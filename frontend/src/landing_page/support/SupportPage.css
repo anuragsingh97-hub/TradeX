@@ -1,0 +1,28 @@
+.quick-links {
+  background: #ffffff;
+  padding: 15px;
+}
+
+.quick-links ul {
+  list-style: none;
+  padding-left: 0;
+}
+.quick-links h5{
+  margin: 0;
+  background-color: #f0efef;
+  height: 50px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.quick-links li {
+  padding: 10px 15px;
+  border-top: 0;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+
+}
+.quick-links li a:hover{
+  color: black;
+}
