@@ -49,7 +49,7 @@ const Funds = () => {
             <div className="data">
               <p>Delivery margin</p>
               <p>0.00</p>
-            </div>
+            </div> 
             <div className="data">
               <p>Exposure</p>
               <p>0.00</p>
