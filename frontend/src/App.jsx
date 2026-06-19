@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Homepage from './landing_page/home/HomePage';
 import Signup from "./landing_page/signup/Signup";
 import AboutPage from "./landing_page/about/AboutPage";
@@ -9,11 +9,13 @@ import ProductPage from './landing_page/products/ProductPage';
 import Navbar from './landing_page/Navbar';
 import Footer from './landing_page/Footer';
 import NotFound from './landing_page/NotFound';
+import Login from './landing_page/login/Login';
+import Tradelogin from "./landing_page/login/Userlogin"
 function App() {
+   const location = useLocation();
   return (
     <>
-    <BrowserRouter>
-    <Navbar/>
+     {location.pathname !== "/tradelogin" && <Navbar /> }
     <Routes>
       <Route path="/" element={<Homepage/>} />
       <Route path="/signup" element={<Signup/>} />
@@ -21,10 +23,11 @@ function App() {
       <Route path="/product" element={<ProductPage />} />
       <Route path="/pricing" element={<PricingPage />} />
       <Route path="/support" element={<SupportPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/tradelogin" element={<Tradelogin />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
-    <Footer/>
-    </BrowserRouter>
+   {location.pathname !== "/tradelogin" && <Footer />}
     </>
   )
 }

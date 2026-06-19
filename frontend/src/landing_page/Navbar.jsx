@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import "../index.css";
 
 function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
+
   return (
     <nav
       className="navbar navbar-expand-lg border-bottom"
-      style={{ backgroundColor: "#FFF", position:"sticky", top:"0",zIndex:100
+      style={{
+        backgroundColor: "#FFF",
+        position: "sticky",
+        top: "0",
+        zIndex: 100,
       }}
     >
       <div className="container p-2">
@@ -16,48 +38,106 @@ function Navbar() {
             alt="Logo"
           />
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <form className="d-flex" role="search">
-            <ul className="navbar-nav mb-lg-0">
-              <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/signup">
-                  Signup
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link active" to="/about">
-                  About
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link active" to="product">
-                  Product
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link active" to="pricing">
-                  Pricing
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link active" to="support">
-                  Support
-                </Link>
-              </li>
-            </ul>
-          </form>
+
+        <div className="collapse navbar-collapse">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <Link className="nav-link" to="/signup">
+                Signup
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/about">
+                About
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/product">
+                Product
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/pricing">
+                Pricing
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/support">
+                Support
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <button
+                className="btn border-0 bg-transparent"
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
+                <i className="fa-solid fa-bars"></i>
+              </button>
+            </li>
+          </ul>
         </div>
+
+        {menuOpen && (
+          <div className="mega-menu" ref={menuRef}>
+            <div className="top-section">
+              <div>
+                <Link className="nav-link" to="/tradelogin">
+                  <img
+                    src="src\assets\logo.png"
+                    alt=""
+                    style={{ height: "30px", width: "45px" }}
+                  />
+                  <h5>Kite</h5>
+                  <p>Trading platform</p>
+                </Link>
+              </div>
+
+              <div>
+                <h5>Console</h5>
+                <p>Backoffice</p>
+              </div>
+
+              <div>
+                <h5>Kite Connect</h5>
+                <p>Trading APIs</p>
+              </div>
+
+              <div>
+                <h5>Coin</h5>
+                <p>Mutual funds</p>
+              </div>
+            </div>
+
+            <div className="bottom-section">
+              <div>
+                <h5>Utilities</h5>
+                <p>Calculators</p>
+                <p>Brokerage calculator</p>
+                <p>Margin calculator</p>
+                <p>SIP calculator</p>
+              </div>
+
+              <div>
+                <h5>Updates</h5>
+                <p>Z-Connect blog</p>
+                <p>Circulars / Bulletin</p>
+                <p>IPOs</p>
+                <p>Markets</p>
+              </div>
+
+              <div>
+                <h5>Education</h5>
+                <p>Varsity</p>
+                <p>Trading Q&A</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
