@@ -86,17 +86,16 @@ function Navbar() {
           <div className="mega-menu" ref={menuRef}>
             <div className="top-section">
               <div>
-                <Link className="nav-link" to="/tradelogin">
+                <a href="http://localhost:5174/login" className="nav-link">
                   <img
-                    src="src\assets\logo.png"
+                    src="src/assets/logo.png"
                     alt=""
                     style={{ height: "30px", width: "45px" }}
                   />
-                  <h5>Kite</h5>
+                  <h5>ZeroTrade</h5>
                   <p>Trading platform</p>
-                </Link>
+                </a>
               </div>
-
               <div>
                 <h5>Console</h5>
                 <p>Backoffice</p>

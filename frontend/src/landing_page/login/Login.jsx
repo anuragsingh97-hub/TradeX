@@ -20,7 +20,7 @@ function Login() {
       return notifyError("Please fill in all fields");
     }
     try {
-      const url = "http://localhost:3002/login";
+      const url = "http://localhost:3002/auth/login";
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -34,7 +34,7 @@ function Login() {
 
         setTimeout(() => {
           window.location.href = "http://localhost:5174";
-        }, 2000);
+        }, 1000);
       } else {
         notifyError(data.message);
       }

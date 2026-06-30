@@ -10,12 +10,12 @@ import Navbar from './landing_page/Navbar';
 import Footer from './landing_page/Footer';
 import NotFound from './landing_page/NotFound';
 import Login from './landing_page/login/Login';
-import Tradelogin from "./landing_page/login/Userlogin"
+
 function App() {
    const location = useLocation();
   return (
     <>
-     {location.pathname !== "/tradelogin" && <Navbar /> }
+    <Navbar />
     <Routes>
       <Route path="/" element={<Homepage/>} />
       <Route path="/signup" element={<Signup/>} />
@@ -24,10 +24,9 @@ function App() {
       <Route path="/pricing" element={<PricingPage />} />
       <Route path="/support" element={<SupportPage />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/tradelogin" element={<Tradelogin />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
-   {location.pathname !== "/tradelogin" && <Footer />}
+   <Footer />
     </>
   )
 }
