@@ -1,5 +1,6 @@
-MONGO_URL=mongodb+srv://aks_projects_db_user:i66wFnIsSmYaD50Q@zeroclonecluster.u4iyhok.mongodb.net/zeroTrade?appName=ZeroCloneCluster
-TOKEN_KEY=mySuperSecretKey123
 
-EMAIL_USER=anuragksingh52@gmail.com
-EMAIL_PASSWORD=ulvp lsuv jwzh qpds
+# Dependencies
+node_modules
+
+# Environment files
+.env
