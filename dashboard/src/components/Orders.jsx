@@ -9,7 +9,7 @@ const Orders = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/allOrders", {
+      .get("http://localhost:3002/orders", {
         withCredentials: true,
       })
       .then((res) => {
@@ -20,31 +20,38 @@ const Orders = () => {
       });
   }, []);
 
+ console.log(allOrders);
   return (
     <>
       <h3 className="title">Orders ({allOrders.length})</h3>
 
       <div className="order-table">
         <table>
-          <tr>
-            <th>Name</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Mode</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Mode</th>
+            </tr>
+          </thead>
 
-          {allOrders.map((stock, index) => {
-            // const buy=stock.mode;
-            // const buyClass = stock.mode ? "profit" : "loss";
-            return (
-              <tr key={index}>
-                <td>{stock.name}</td>
-                <td>{stock.qty}</td>
+          <tbody>
+            {allOrders.map((stock) => (
+              <tr key={stock._id}>
+                <td>{stock.symbol}</td>
+                <td>{stock.quantity}</td>
                 <td>{stock.price}</td>
-                <td className="buyClass">{stock.mode}</td>
+                <td
+                  className={
+                    stock.mode?.toLowerCase() === "buy" ? "profit" : "loss"
+                  }
+                >
+                  {stock.mode}
+                </td>
               </tr>
-            );
-          })}
+            ))}
+          </tbody>
         </table>
       </div>
     </>

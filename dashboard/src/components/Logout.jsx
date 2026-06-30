@@ -1,41 +1,46 @@
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Logout.css";
 import Summary from "./Summary";
 
+import { useNavigate } from "react-router-dom";
+
 function Logout() {
   const [showMenu, setShowMenu] = useState(false);
-   const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
-    useEffect(() => {
+  useEffect(() => {
     axios
-      .get("http://localhost:3002/profile", {
+      .get("http://localhost:3002/user/profile", {
         withCredentials: true,
       })
       .then((res) => {
         setUser(res.data);
-        console.log(rea.data);
+        // console.log(res.data);
       })
+
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:3002/logout",
+        "http://localhost:3002/auth/logout",
         {},
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       window.location.href = "http://localhost:5173/login";
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleProfile = () => {
+    navigate("/profile");
   };
 
   return (
@@ -53,20 +58,17 @@ function Logout() {
             <h6>{user?.username}</h6>
             <p>{user?.email}</p>
           </div>
-          <button className="menu-item">
+          <button className="menu-item" onClick={handleProfile}>
+            
             Profile Details
           </button>
 
-          <button
-            className="menu-item logout"
-            onClick={handleLogout}
-          >
+          <button className="menu-item logout" onClick={handleLogout}>
             Logout
           </button>
         </div>
       )}
     </div>
-
   );
 }
 

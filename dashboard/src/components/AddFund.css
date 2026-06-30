@@ -1,0 +1,56 @@
+.fund-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999999;
+}
+
+.fund-modal {
+  width: 420px;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,.3);
+}
+
+.fund-modal h2{
+  margin-bottom:20px;
+}
+
+.fund-modal input{
+  width:100%;
+  padding:12px;
+  margin-bottom:20px;
+  box-sizing:border-box;
+}
+
+.fund-modal-buttons{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
+
+.fund-submit{
+  color:white;
+  border:none;
+  padding:10px 20px;
+  cursor:pointer;
+}
+
+.fund-cancel{
+  background:#ff0000;
+  border:none;
+  color: white;
+  padding:10px 20px;
+  cursor:pointer;
+  margin-top: 9px;
+}
+:hover ,fund-cancel{
+    color: black;
+
+}

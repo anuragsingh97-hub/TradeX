@@ -1,86 +1,91 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import AddFund from "./AddFund";
 
 const Funds = () => {
+  const [funds, setFunds] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [action, setAction] = useState("ADD");
+
+  const fetchFunds = async () => {
+    try {
+       console.log("fetchFunds called");
+      const res = await axios.get("http://localhost:3002/user/funds", {
+        withCredentials: true,
+      });
+      setFunds(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    console.log("Funds useEffect");
+    fetchFunds();
+  }, []);
+  console.log(funds);
+
   return (
     <>
       <div className="funds">
         <p>Instant, zero-cost fund transfers with UPI </p>
-        <Link className="btn btn-green">Add funds</Link>
-        <Link className="btn btn-blue">Withdraw</Link>
+
+        <button
+          className="btn"
+          onClick={() => {
+            setAction("ADD");
+            setShowModal(true);
+          }}
+        >
+          Add Funds
+        </button>
+
+        <button
+          className="btn"
+          onClick={() => {
+            setAction("WITHDRAW");
+            setShowModal(true);
+          }}
+        >
+          Withdraw
+        </button>
       </div>
 
-      <div className="row">
-        <div className="col">
-          <span>
-            <p>Equity</p>
-          </span>
+      <div className="section">
+        <span>
+          <p>Equity</p>
+        </span>
 
-          <div className="table">
-            <div className="data">
-              <p>Available margin</p>
-              <p className="imp colored">4,043.10</p>
-            </div>
-            <div className="data">
-              <p>Used margin</p>
-              <p className="imp">3,757.30</p>
-            </div>
-            <div className="data">
-              <p>Available cash</p>
-              <p className="imp">4,043.10</p>
-            </div>
-            <hr />
-            <div className="data">
-              <p>Opening Balance</p>
-              <p>4,043.10</p>
-            </div>
-            <div className="data">
-              <p>Opening Balance</p>
-              <p>3736.40</p>
-            </div>
-            <div className="data">
-              <p>Payin</p>
-              <p>4064.00</p>
-            </div>
-            <div className="data">
-              <p>SPAN</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Delivery margin</p>
-              <p>0.00</p>
-            </div> 
-            <div className="data">
-              <p>Exposure</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Options premium</p>
-              <p>0.00</p>
-            </div>
-            <hr />
-            <div className="data">
-              <p>Collateral (Liquid funds)</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Collateral (Equity)</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Total Collateral</p>
-              <p>0.00</p>
-            </div>
+        <div className="data">
+          <div className="first">
+            <h3>₹{funds?.availableCash.toFixed(2)}</h3>
+
+            <p>Margin available</p>
           </div>
-        </div>
 
-        <div className="col">
-          <div className="commodity">
-            <p>You don't have a commodity account</p>
-            <Link className="btn btn-blue">Open Account</Link>
+          <hr />
+
+          <div className="second">
+            <p>
+              Margins used
+              <span>₹{funds?.usedMargin.toFixed(2)}</span>
+            </p>
+
+            <p>
+              Opening balance
+              <span>₹{funds?.openingBalance.toFixed(2)}</span>
+            </p>
           </div>
         </div>
       </div>
+      {showModal && (
+        <AddFund
+          action={action}
+          fetchFunds={fetchFunds}
+          close={() => setShowModal(false)}
+        />
+      )}
     </>
   );
 };

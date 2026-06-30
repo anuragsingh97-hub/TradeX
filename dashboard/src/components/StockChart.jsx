@@ -3,14 +3,32 @@ import React, { useEffect, useRef } from "react";
 import { createChart, CandlestickSeries } from "lightweight-charts";
 import "../index.css";
 
-
 const StockChart = ({ data }) => {
   const chartContainerRef = useRef();
 
   useEffect(() => {
     const chart = createChart(chartContainerRef.current, {
-      width: 1000,
+      width: chartContainerRef.current.clientWidth,
       height: 600,
+
+      layout: {
+        background: { color: "#ffffff" },
+        textColor: "#333",
+      },
+
+      grid: {
+        vertLines: { color: "#f0f3fa" },
+        horzLines: { color: "#f0f3fa" },
+      },
+
+      rightPriceScale: {
+        borderColor: "#d1d4dc",
+      },
+
+      timeScale: {
+        borderColor: "#d1d4dc",
+        timeVisible: true,
+      },
     });
 
     const candleSeries = chart.addSeries(CandlestickSeries);
@@ -18,8 +36,7 @@ const StockChart = ({ data }) => {
     const cleanedData = [...data]
       .sort((a, b) => a.time - b.time)
       .filter(
-        (item, index, arr) =>
-          index === 0 || item.time > arr[index - 1].time
+        (item, index, arr) => index === 0 || item.time > arr[index - 1].time,
       );
 
     candleSeries.setData(cleanedData);

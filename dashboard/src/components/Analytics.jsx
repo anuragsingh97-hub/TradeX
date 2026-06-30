@@ -9,8 +9,8 @@ function Analytics({ symbol }) {
 
   useEffect(() => {
     axios.get(`http://localhost:3002/history/${symbol}`).then((res) => {
-      const formatted = res.data.map((item) => ({
-        time: Math.floor(new Date(item.time).getTime() / 1000),
+      const formatted = res.data.map((item,index) => ({
+        time: Math.floor(Date.now() / 1000) + index * 86400,
         open: item.open,
         high: item.high,
         low: item.low,
@@ -18,9 +18,10 @@ function Analytics({ symbol }) {
       }));
 
       setHistory(formatted);
+      // console.table(formatted);
     });
   }, [symbol]);
-  console.log(history);
+  // console.log(history);
   //   console.table(
   //   history.map(item => ({
   //     time: item.time,

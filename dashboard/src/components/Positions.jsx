@@ -8,47 +8,47 @@ const Positions = () => {
   const [allPositions, setallPositions] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3002/allPositions").then((res) => {
-      console.log(res.data);
-      setallPositions(res.data);
-    });
+    axios
+      .get("http://localhost:3002/positions", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setallPositions(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
+  // console.log(allPositions);
   return (
     <>
       <h3 className="title">Positions ({allPositions.length})</h3>
 
       <div className="order-table">
         <table>
-          <tr>
-            <th>Product</th>
-            <th>Instrument</th>
-            <th>Qty.</th>
-            <th>Avg.</th>
-            <th>LTP</th>
-            <th>P&L</th>
-            <th>Chg.</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Quantity</th>
+              <th>Avg Price</th>
+              <th>P&L</th>
+              <th>Status</th>
+            </tr>
+          </thead>
 
-          {allPositions.map((stock, index) => {
-            const curValue = stock.price * stock.qty;
-            const isProfit = curValue - stock.avg * stock.qty >= 0.0;
-            const profClass = isProfit ? "profit" : "loss";
-            const dayClass = stock.isLoss ? "loss" : "profit";
-
-            return (
-              <tr key={index}>
-                <td>{stock.product}</td>
-                <td>{stock.name}</td>
-                <td>{stock.qty}</td>
-                <td>{stock.avg.toFixed(2)}</td>
-                <td>{stock.price.toFixed(2)}</td>
-                <td className={profClass}>
-                  {(curValue - stock.avg * stock.qty).toFixed(2)}
+          <tbody>
+            {allPositions.map((p) => (
+              <tr key={p._id}>
+                <td>{p.symbol}</td>
+                <td>{p.quantity}</td>
+                <td>{p.avgPrice}</td>
+                <td className={p.pnl >= 0 ? "profit" : "loss"}>
+                  ₹{p.pnl.toFixed(2)}
                 </td>
-                <td className={dayClass}>{stock.day}</td>
+                <td className={p.status === "OPEN" ? "profit" : "loss"}>{p.status}</td>
               </tr>
-            );
-          })}
+            ))}
+          </tbody>
         </table>
       </div>
     </>

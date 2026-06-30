@@ -10,14 +10,16 @@ import "./BuyActionWindow.css";
 const BuyActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0.0);
+  const [productType, setProductType] = useState("CNC");
   const handleBuyClick = () => {
     axios.post(
-      "http://localhost:3002/newOrder",
+      "http://localhost:3002/orders/buy",
       {
-        name: uid,
-        qty: stockQuantity,
-        price: stockPrice,
+        symbol: uid,
+        quantity: Number(stockQuantity),
+        price: Number(stockPrice),
         mode: "BUY",
+        productType,
       },
       {
         withCredentials: true,
@@ -56,6 +58,13 @@ const BuyActionWindow = ({ uid }) => {
               value={stockPrice}
             />
           </fieldset>
+          <select
+            value={productType}
+            onChange={(e) => setProductType(e.target.value)}
+          >
+            <option value="CNC">CNC</option>
+            <option value="MIS">MIS</option>
+          </select>
         </div>
       </div>
 

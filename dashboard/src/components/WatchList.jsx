@@ -19,12 +19,13 @@ import { DoughnutChart } from "./DoughnoutChart";
 
 const WatchList = () => {
   const [allStocks, setallStocks] = useState([]);
+  const [search, setSearch] = useState("");
   const [selectedStock, setSelectedStock] = useState(null);
   const [showAnalytics, setShowAnalytics] = useState(false);
   useEffect(() => {
     const fetchStocks = () => {
       axios
-        .get("http://localhost:3002/stocks")
+        .get("http://localhost:3002/watchlist")
         .then((res) => {
           setallStocks(res.data);
         })
@@ -37,7 +38,9 @@ const WatchList = () => {
 
     return () => clearInterval(interval);
   }, []);
-
+const filteredStocks = allStocks.filter((stock) =>
+      stock.symbol.toLowerCase().includes(search.toLowerCase()),
+    );
   const data = {
     datasets: [
       {
@@ -67,18 +70,22 @@ const WatchList = () => {
   return (
     <div className="watchlist-container">
       <div className="search-container">
-        <input
+        <input style={{color:"black"}}
           type="text"
           name="search"
           id="search"
-          placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
+          placeholder="Search eg : Sensex, Nifty, Wipro"
           className="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
-        <span className="counts"> {allStocks.length} / 50</span>
+        <span className="counts">
+          {filteredStocks.length} / {allStocks.length}
+        </span>
       </div>
 
       <ul className="list">
-        {allStocks.map((stock, index) => {
+        {filteredStocks.map((stock, index) => {
           return (
             <WatchListItem
               stock={stock}
@@ -151,11 +158,14 @@ const WatchListItem = ({ stock, setSelectedStock, setShowAnalytics }) => {
   );
 };
 
-const WatchListActions = ({ uid, setSelectedStock,setShowAnalytics }) => {
+const WatchListActions = ({ uid, setSelectedStock, setShowAnalytics }) => {
   const generalContext = useContext(GeneralContext);
 
   const handleBuyClick = () => {
     generalContext.openBuyWindow(uid);
+  };
+  const handleSellClick = () => {
+    generalContext.openSellWindow(uid);
   };
 
   return (
@@ -175,6 +185,7 @@ const WatchListActions = ({ uid, setSelectedStock,setShowAnalytics }) => {
           placement="top"
           arrow
           TransitionComponent={Grow}
+          onClick={handleSellClick}
         >
           <button className="sell">Sell</button>
         </Tooltip>
@@ -194,11 +205,11 @@ const WatchListActions = ({ uid, setSelectedStock,setShowAnalytics }) => {
             <BarChartOutlined className="icon" />
           </button>
         </Tooltip>
-        <Tooltip title="More" placement="top" arrow TransitionComponent={Grow}>
+        {/* <Tooltip title="More" placement="top" arrow TransitionComponent={Grow}>
           <button className="action">
             <MoreHoriz className="icon" />
           </button>
-        </Tooltip>
+        </Tooltip> */}
       </span>
     </span>
   );

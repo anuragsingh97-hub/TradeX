@@ -1,24 +1,52 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 const Summary = () => {
+  const [summary, setSummary] = useState({
+    totalInvestment: 0,
+    currentValue: 0,
+    totalPnL: 0,
+    holdingsCount: 0,
+  });
+
   const [user, setUser] = useState(null);
+
   useEffect(() => {
     axios
-      .get("http://localhost:3002/profile", {
+      .get("http://localhost:3002/user/profile", {
         withCredentials: true,
       })
       .then((res) => {
-        console.log("Profile Response:", res.data);
         setUser(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
+
+    axios
+      .get("http://localhost:3002/user/summary", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setSummary(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
+
+  const pnlPercent =
+    summary.totalInvestment > 0
+      ? (
+          (summary.totalPnL / summary.totalInvestment) *
+          100
+        ).toFixed(2)
+      : 0;
+console.log(summary);
   return (
     <>
       <div className="username">
-        <h6>Hi,{user?.username}</h6>
+        <h6>Hi, {user?.username}</h6>
         <hr className="divider" />
       </div>
 
@@ -29,46 +57,79 @@ const Summary = () => {
 
         <div className="data">
           <div className="first">
-            <h3>3.74k</h3>
-            <p>Margin available</p>
+            <h3>
+              ₹{summary.currentValue.toFixed(2)}
+            </h3>
+            <p>Portfolio Value</p>
           </div>
+
           <hr />
 
           <div className="second">
             <p>
-              Margins used <span>0</span>{" "}
+              Current Value
+              <span>
+                ₹{summary.currentValue.toFixed(2)}
+              </span>
             </p>
+
             <p>
-              Opening balance <span>3.74k</span>{" "}
+              Investment
+              <span>
+                ₹{summary.totalInvestment.toFixed(2)}
+              </span>
             </p>
           </div>
         </div>
+
         <hr className="divider" />
       </div>
 
       <div className="section">
         <span>
-          <p>Holdings (13)</p>
+          <p>
+            Holdings ({summary.holdingsCount})
+          </p>
         </span>
 
         <div className="data">
           <div className="first">
-            <h3 className="profit">
-              1.55k <small>+5.20%</small>{" "}
+            <h3
+              className={
+                summary.totalPnL >= 0
+                  ? "profit"
+                  : "loss"
+              }
+            >
+              ₹{summary.totalPnL.toFixed(2)}
+              <small>
+                {summary.totalPnL >= 0 ? "+" : ""}
+                {pnlPercent}%
+              </small>
             </h3>
+
             <p>P&L</p>
           </div>
+
           <hr />
 
           <div className="second">
             <p>
-              Current Value <span>31.43k</span>{" "}
+              Current Value
+              <span>
+                ₹{summary.currentValue.toFixed(2)}
+              </span>
             </p>
+
             <p>
-              Investment <span>29.88k</span>{" "}
+              Investment
+              <span>
+                ₹{summary.totalInvestment.toFixed(2)}
+              </span>
             </p>
           </div>
         </div>
+
         <hr className="divider" />
       </div>
     </>

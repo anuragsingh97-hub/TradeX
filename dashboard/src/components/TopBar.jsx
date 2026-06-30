@@ -10,7 +10,7 @@ const TopBar = () => {
   useEffect(() => {
     const fetchStocks = () => {
       axios
-        .get("http://localhost:3002/stocks")
+        .get("http://localhost:3002/watchlist")
         .then((res) => {
           setallStocks(res.data);
         })

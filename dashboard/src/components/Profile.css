@@ -1,0 +1,138 @@
+.profile-page{
+    display:flex;
+    justify-content:center;
+    margin-top:20px;
+}
+
+.profile-card{
+    width:700px;
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+.profile-header{
+
+    text-align:center;
+
+}
+
+.avatar{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    background:#387ed1;
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:25px;
+
+    font-weight:bold;
+
+    margin:auto;
+
+}
+
+.profile-header h2{
+
+    margin-top:10px;
+
+}
+
+.profile-header p{
+
+    color:gray;
+
+}
+
+.profile{
+
+    margin-top:30px;
+   
+
+}
+
+.profile-container{
+    width: 900px;
+}
+
+.profile-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:22px;
+
+}
+
+.profile-row label{
+
+    width:180px;
+
+    font-weight:600;
+
+}
+
+.profile-row input,
+.profile-row select{
+
+    flex:1;
+
+    border:1px solid #ddd;
+
+    padding:10px;
+
+    border-radius:8px;
+
+}
+
+.profile-buttons{
+
+    margin-top:35px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+}
+
+.profile-buttons button{
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+.save{
+
+    background:#387ed1;
+
+    color:white;
+
+}
+
+.cancel{
+
+    background:#f3f3f3;
+
+}

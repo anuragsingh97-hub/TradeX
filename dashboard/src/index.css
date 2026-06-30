@@ -272,6 +272,7 @@ code {
 
 .menus ul {
   list-style-type: none;
+  margin-top: 25px;
 }
 
 .menus li {
@@ -846,7 +847,7 @@ hr {
   position: fixed;
   top: 0;
   right: 0;
-  width: 65%;
+  width: 67%;
   height: 100vh;
   background: white;
   z-index: 9999;
@@ -880,3 +881,63 @@ hr {
   background: #d32f2f;
 }
 
+/* add fund */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 99999;
+}
+
+.modal {
+  width: 420px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.modal h2 {
+  margin-bottom: 20px;
+}
+
+.modal input {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.submit {
+  background: #4184f3;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel {
+  background: #e0e0e0;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
