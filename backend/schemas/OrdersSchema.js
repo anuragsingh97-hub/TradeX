@@ -1,17 +1,17 @@
-const { Schema } = require("mongoose");
+// OrdersSchema.js
+const mongoose = require("mongoose");
 
-const OrdersSchema = new Schema({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  qty: Number,
+const OrdersSchema = new mongoose.Schema({
+  userId: String,
+  symbol: String,
+  quantity: Number,
   price: Number,
-  mode: String,
+  mode: String, // BUY / SELL
+  productType: String, // CNC / MIS
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-module.exports = { OrdersSchema };
+module.exports = OrdersSchema;

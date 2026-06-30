@@ -2,8 +2,10 @@ const jwt = require("jsonwebtoken");
 
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
-  // console.log(`token`,token);
+  // console.log(`token--`,token);
+    // console.log("Cookies:", req.cookies);
   if (!token) {
+    console.log(`token--`,token);
     return res.status(401).json({
       message: "Please login",
     });
@@ -16,6 +18,7 @@ const verifyUser = (req, res, next) => {
     );
 
     req.userId = decoded.id;
+
     // console.log("User ID from token:", req.userId);
 
     next();

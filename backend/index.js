@@ -1,18 +1,24 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const { HoldingsModel } = require("./models/HoldingsModel");
-const { PositionsModel } = require("./models/PositionsModel");
-const { OrdersModel } = require("./models/OrdersModel");
+const HoldingsModel = require("./models/HoldingsModel");
+const PositionModel = require("./models/PositionsModel");
+const OrdersModel = require("./models/OrdersModel");
 const StockModel = require("./models/StocksModel");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const authRoute = require("./Routes/AuthRoute");
-const yahooFinance = require("yahoo-finance2").default;
-const auth = require("./Middleware/Auth-Middleware");
+const authRoute = require("./routes/authRoute");
+const userRoute=require("./routes/userRoutes");
+const holdingsRoute=require("./routes/holdingsRoutes");
+const positionsRoute=require("./routes/positionsRoutes");
+const ordersRoute=require("./routes/ordersRoutes");
+const watchlistRouter=require("./routes/watchlistRoutes")
+const auth = require("./middleware/authMiddleware");
 const User = require("./models/UserModel");
 const StockHistory = require("./models/HistoryStocksModel");
+const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
 
 const PORT = process.env.PORT || 3002;
 const URL = process.env.MONGO_URL;
@@ -28,8 +34,12 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
-app.use("/", authRoute);
-
+app.use("/auth", authRoute);
+app.use("/user",userRoute);
+app.use("/holdings",holdingsRoute);
+app.use("/positions",positionsRoute);
+app.use("/orders",ordersRoute);
+app.use("/watchlist",watchlistRouter);
 // app.get("/profile", (req, res) => {
 //     console.log(req.cookies);
 //     res.send(req.cookies);
@@ -205,31 +215,6 @@ app.use("/", authRoute);
 //   res.send("Done!");
 // });
 
-app.get("/allHoldings", async (req, res) => {
-  let allHoldings = await HoldingsModel.find({});
-  res.json(allHoldings);
-});
-
-app.get("/allPositions", async (req, res) => {
-  let allPositions = await PositionsModel.find({});
-  res.json(allPositions);
-});
-
-app.post("/newOrder", auth, async (req, res) => {
-  const order = new OrdersModel({
-    userId: req.userId,
-    name: req.body.name,
-    qty: req.body.qty,
-    price: req.body.price,
-    mode: req.body.mode,
-  });
-
-  await order.save();
-
-  res.json({
-    message: "Order Saved",
-  });
-});
 
 // app.get("/allOrders", async (req, res) => {
 //   let allOrders = await OrdersModel.find({});
@@ -237,14 +222,6 @@ app.post("/newOrder", auth, async (req, res) => {
 //   console.log(allOrders);
 // });
 
-app.get("/allOrders", auth, async (req, res) => {
-  // console.log("User ID:", req.userId);
-  const orders = await OrdersModel.find({
-    userId: req.userId,
-  });
-  //  console.log(orders);
-  res.json(orders);
-});
 
 // app.get("/nifty", async (req, res) => {
 //   try {
@@ -284,31 +261,35 @@ app.get("/allOrders", auth, async (req, res) => {
 //   console.log(StockModel);
 // });
 
-app.get("/stocks", async (req, res) => {
-  const stocks = await StockModel.find();
-  res.json(stocks);
-});
 
-app.post("/logout", (req, res) => {
-  res.clearCookie("token");
-  res.status(200).json({
-    success: true,
-    message: "Logged out successfully",
-  });
-});
 
-app.get("/profile", auth, async (req, res) => {
-  // console.log("User ID:", req.userId);
-  try {
-    const user = await User.findById(req.userId).select("-password");
+// app.post("/reset-password", async (req, res) => {
+//   const { token, password } = req.body;
 
-    res.json(user);
-  } catch (err) {
-    res.status(500).json({
-      message: "Server Error",
-    });
-  }
-});
+//   const user = await User.findOne({
+//     resetToken: token,
+//     resetTokenExpiry: { $gt: Date.now() },
+//   });
+
+//   if (!user) {
+//     return res.status(400).json({
+//       message: "Invalid or expired token",
+//     });
+//   }
+
+//   const hashedPassword =
+//     await bcrypt.hash(password, 10);
+
+//   user.password = hashedPassword;
+//   user.resetToken = undefined;
+//   user.resetTokenExpiry = undefined;
+
+//   await user.save();
+
+//   res.json({
+//     message: "Password reset successful",
+//   });
+// });
 
 app.get("/history/:symbol", async (req, res) => {
   try {
@@ -327,6 +308,7 @@ app.get("/history/:symbol", async (req, res) => {
   }
 });
 
+
 function startPriceUpdater() {
   setInterval(async () => {
     const stocks = await StockModel.find();
@@ -342,41 +324,68 @@ function startPriceUpdater() {
   }, 1000);
 }
 
-function startHistorySaver(){
-setInterval(async () => {
-  try {
-    const stocks = await StockModel.find();
+function startHistorySaver() {
+  setInterval(async () => {
+    try {
+      const stocks = await StockModel.find();
 
-    for (const stock of stocks) {
-      const open = stock.price;
+      for (const stock of stocks) {
+        const open = stock.price;
 
-      const close = Number((open + (Math.random() * 20 - 10)).toFixed(2));
+        const close = Number((open + (Math.random() * 20 - 10)).toFixed(2));
 
-      const high = Number(
-        (Math.max(open, close) + Math.random() * 5).toFixed(2),
-      );
+        const high = Number(
+          (Math.max(open, close) + Math.random() * 5).toFixed(2),
+        );
 
-      const low = Number(
-        (Math.min(open, close) - Math.random() * 5).toFixed(2),
-      );
+        const low = Number(
+          (Math.min(open, close) - Math.random() * 5).toFixed(2),
+        );
 
-      await StockHistory.create({
-        symbol: stock.symbol,
-        time: Math.floor(Date.now() / 1000), // Unix timestamp
+        await StockHistory.create({
+          symbol: stock.symbol,
+          time: Math.floor(Date.now() / 1000), 
+          open,
+          high,
+          low,
+          close,
+        });
+      }
 
-        open,
-        high,
-        low,
-        close,
-      });
+      console.log("History Saved");
+    } catch (err) {
+      console.log(err);
     }
-
-    console.log("History Saved");
-  } catch (err) {
-    console.log(err);
-  }
-}, 300000);
+  }, 300000);
 }
+
+// app.post("/forgot-password", async (req, res) => {
+//   const { email } = req.body;
+
+//   const user = await User.findOne({ email });
+
+//   if (!user) {
+//     return res.status(404).json({
+//       message: "User not found",
+//     });
+//   }
+
+//   const token = crypto.randomBytes(32).toString("hex");
+
+//   user.resetToken = token;
+//   user.resetTokenExpiry = Date.now() + 3600000;
+
+//   await user.save();
+
+//   const resetLink =
+//     `http://localhost:5173/reset-password/${token}`;
+
+//   // send email here using nodemailer
+
+//   res.json({
+//     message: "Password reset link sent",
+//   });
+// });
 
 async function startServer() {
   try {
@@ -390,7 +399,6 @@ async function startServer() {
 
     startPriceUpdater();
     startHistorySaver();
-
   } catch (err) {
     console.log("MongoDB Connection Error:", err);
   }

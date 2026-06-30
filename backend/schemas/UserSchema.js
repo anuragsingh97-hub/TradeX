@@ -18,6 +18,13 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  mobile: String,
+  dob: Date,
+  gender: String,
+
+  profilePhoto: String,
+  otp: String,
+  otpExpiry: Date,
 });
 
 module.exports = { userSchema };
