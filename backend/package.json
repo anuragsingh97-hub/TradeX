@@ -4,7 +4,8 @@
   "description": "zero_backend",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.jsnpm"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "AnuragSingh",
   "license": "ISC",
