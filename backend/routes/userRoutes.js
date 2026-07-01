@@ -3,7 +3,7 @@ const userController = require("../controllers/userController");
 const auth = require("../middleware/authMiddleware");
 
 router.get("/profile", auth, userController.getProfile);
-
+//get routes
 router.put("/profile", auth, userController.updateProfile);
 router.post("/addfunds", auth, userController.AddFunds);
 router.post("/withdrawfunds", auth, userController.WithdrawFunds);
