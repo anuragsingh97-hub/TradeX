@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const controller = require("../conrollers/watchlistController");
+const controller = require("../controllers/watchlistController");
 const auth = require("../middleware/authMiddleware");
 
 router.get("/", controller.getWatchlist);
