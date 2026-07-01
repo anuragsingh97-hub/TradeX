@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const controller = require("../controllers/positionsController");
+const controller = require("../conrollers/positionsController");
 const auth = require("../middleware/authMiddleware");
 
 router.get("/", auth, controller.getPositions);

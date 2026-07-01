@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const userController = require("../controllers/userController");
+const userController = require("../conrollers/userController");
 const auth = require("../middleware/authMiddleware");
 
 router.get("/profile", auth, userController.getProfile);
