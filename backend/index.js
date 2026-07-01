@@ -13,7 +13,7 @@ const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoutes");
 const holdingsRoute = require("./routes/holdingsRoute");
 const positionsRoute = require("./routes/positionsRoutes");
-const ordersRoute = require("./routes/ordersRoutes");
+const ordersRoute = require("./routes/ordersRoute");
 const watchlistRoute = require("./routes/watchlistRoutes");
 
 const app = express();
