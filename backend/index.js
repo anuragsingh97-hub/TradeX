@@ -10,7 +10,7 @@ const StockModel = require("./models/StocksModel");
 const StockHistory = require("./models/HistoryStocksModel");
 
 const authRoute = require("./routes/authRoute");
-const userRoute = require("./routes/userRoutes");
+const userRoute = require("./routes/userRoute");
 const holdingsRoute = require("./routes/holdingsRoute");
 const positionsRoute = require("./routes/positionsRoute");
 const ordersRoute = require("./routes/ordersRoute");
