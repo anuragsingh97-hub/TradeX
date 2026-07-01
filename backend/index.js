@@ -11,7 +11,7 @@ const StockHistory = require("./models/HistoryStocksModel");
 
 const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoutes");
-const holdingsRoute = require("./routes/holdingsRoutes");
+const holdingsRoute = require("./routes/holdingsRoute");
 const positionsRoute = require("./routes/positionsRoutes");
 const ordersRoute = require("./routes/ordersRoutes");
 const watchlistRoute = require("./routes/watchlistRoutes");
