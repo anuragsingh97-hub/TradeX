@@ -33,7 +33,7 @@ function Logout() {
         {},
       );
 
-      window.location.href = "http://localhost:5173/login";
+      window.location.href = "https://zerotrade-aksproject.netlify.app/login";
     } catch (error) {
       console.log(error);
     }
