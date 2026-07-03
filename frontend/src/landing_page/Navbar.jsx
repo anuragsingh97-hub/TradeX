@@ -86,7 +86,7 @@ function Navbar() {
           <div className="mega-menu" ref={menuRef}>
             <div className="top-section">
               <div>
-                <a href="http://localhost:5174/login" className="nav-link">
+                <a href="https://zerotrade-dashboard.netlify.app/login" className="nav-link">
                   <img
                     src="src/assets/logo.png"
                     alt=""

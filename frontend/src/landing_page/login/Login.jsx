@@ -8,6 +8,7 @@ const API = import.meta.env.VITE_API_URL;
 
 
 function Login() {
+  console.log("api",API);
   const [formData, setformData] = useState({
     email: "",
     password: "",
@@ -36,7 +37,7 @@ function Login() {
         notifySuccess(data.message || "Login successful!");
 
         setTimeout(() => {
-          window.location.href = "http://localhost:5174";
+          window.location.href = "https://zerotrade-dashboard.netlify.app/";
         }, 1000);
       } else {
         notifyError(data.message);
