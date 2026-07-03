@@ -26,7 +26,7 @@ app.use(
   cors({
     origin: [
       "https://zerotrade-dashboard.netlify.app",
-      "https://zerotrade-aksproject.netlify.app/",
+      "https://zerotrade-aksproject.netlify.app",
     ],
     credentials: true,
   })
