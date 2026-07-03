@@ -1,16 +1,26 @@
 const User = require("../models/UserModel");
 const { createSecretToken } = require("../util/SecretToken");
 const bcrypt = require("bcryptjs");
-const { FundsModel } = require("../models/FundsModel");
+const FundsModel = require("../models/FundsModel");
 const nodemailer = require("nodemailer");
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: process.env.EMAIL_USER,
+//     pass: process.env.EMAIL_PASSWORD,
+//   },
+// });
+
+
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,
   },
 });
-
 
 //signup router
 
@@ -41,8 +51,8 @@ module.exports.signup = async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
     });
     const fund = await FundsModel.create({
       userId: user._id,
@@ -66,6 +76,7 @@ module.exports.signup = async (req, res, next) => {
 //login router
 
 module.exports.login = async (req, res, next) => {
+  console.log("during login--");
   try {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -82,9 +93,10 @@ module.exports.login = async (req, res, next) => {
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
     });
+    // console.log("during login--",token);
     return res
       .status(201)
       .json({ message: "User logged in successfully", success: true });
@@ -173,19 +185,44 @@ module.exports.sendOTP = async (req, res) => {
   user.otpExpiry = Date.now() + 5 * 60 * 1000;
 
   await user.save();
+  console.log(" otp saved in usermodel");
+  try {
+    await transporter.verify();
+    console.log("SMTP connection successful");
+  } catch (err) {
+    console.error("SMTP Verify Error:", err);
+  }
 
-  await transporter.sendMail({
-    from: '"ZeroTrade Support" <yourgmail@gmail.com>',
-    to: email,
-    subject: "ZeroTrade Password Reset OTP",
-    html: `
+  try {
+    const info = await transporter.sendMail({
+      from: '"ZeroTrade Support" <anuragksingh52@gmail.com>',
+      to: email,
+      subject: "ZeroTrade Password Reset OTP",
+      html: `
     <h2>ZeroTrade Password Reset</h2>
     <p>Your OTP is:</p>
     <h1>${otp}</h1>
     <p>This OTP will expire in 5 minutes.</p>
     <p>If you didn't request this, please ignore this email.</p>
   `,
-  });
+    });
+
+    console.log("Email sent:", info);
+  } catch (err) {
+    console.error(err);
+  }
+  // await transporter.sendMail({
+  //   from: `"ZeroTrade Support" <${process.env.EMAIL_USER}>`,
+  //   to: email,
+  //   subject: "ZeroTrade Password Reset OTP",
+  //   html: `
+  //   <h2>ZeroTrade Password Reset</h2>
+  //   <p>Your OTP is:</p>
+  //   <h1>${otp}</h1>
+  //   <p>This OTP will expire in 5 minutes.</p>
+  //   <p>If you didn't request this, please ignore this email.</p>
+  // `,
+  // });
 
   res.json({
     success: true,
