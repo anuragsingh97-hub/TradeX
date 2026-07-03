@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./ForgotPassword.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import api from "../api/api"
+// const API = "https://zerotrade-eidw.onrender.com";
 
 function ForgotPassword() {
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ function ForgotPassword() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:3002/auth/send-otp", { email });
+      const res = await api.post("/auth/send-otp", { email });
 
       if (res.data.success) {
         console.log("otp send on gmail");
@@ -29,7 +31,7 @@ function ForgotPassword() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:3002/auth/verify-otp", {
+      const res = await api.post("/auth/verify-otp", {
         email,
         otp,
       });

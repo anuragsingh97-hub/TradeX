@@ -4,11 +4,16 @@ import axios from "axios";
 
 import StockChart from "./StockChart";
 
+import api from "../api/api"
+
+// const API = "https://zerotrade-eidw.onrender.com";
+
+
 function Analytics({ symbol }) {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3002/history/${symbol}`).then((res) => {
+    api.get(`/history/${symbol}`).then((res) => {
       const formatted = res.data.map((item,index) => ({
         time: Math.floor(Date.now() / 1000) + index * 86400,
         open: item.open,

@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Profile.css"
+import api from "../api/api"
+// const API = "https://zerotrade-eidw.onrender.com";
 
 const Profile = () => {
   const [user, setUser] = useState({});
   const [editMode, setEditMode] = useState(false);
 
+
   const fetchProfile = async () => {
-    const res = await axios.get("http://localhost:3002/user/profile", {
-      withCredentials: true,
-    });
+    const res = await api.get("/user/profile");
 
     setUser(res.data);
   };
@@ -26,9 +27,7 @@ const Profile = () => {
   };
 
   const handleSave = async () => {
-    await axios.put("http://localhost:3002/user/profile", user, {
-      withCredentials: true,
-    });
+    await api.put("/user/profile", user);
 
     setEditMode(false);
     fetchProfile();

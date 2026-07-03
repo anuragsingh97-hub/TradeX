@@ -2,6 +2,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "./ResetPassword.css";
+import api from "../api/api"
+
+// const API = "https://zerotrade-eidw.onrender.com";
+
 function ResetPassword() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,7 +25,7 @@ function ResetPassword() {
 
     setError("");
 
-    const res = await axios.post("http://localhost:3002/auth/reset-password", {
+    const res = await api.post("/auth/reset-password", {
       email: state.email,
       password,
     });

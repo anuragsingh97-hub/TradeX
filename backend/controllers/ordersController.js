@@ -8,11 +8,14 @@ module.exports.getOrders= async (req, res) => {
   const orders = await OrdersModel.find({
     userId: req.userId,
   });
-  // console.log(orders);
+  console.log(orders);
   res.json(orders);
 };
 
 module.exports.buyStock=async (req, res) => {
+  console.log("buy routes hiit");
+  console.log("Buy API called");
+console.log(req.body);
   try {
     const { symbol, quantity, price, productType } = req.body;
     const userId = req.userId;
@@ -122,6 +125,7 @@ module.exports.buyStock=async (req, res) => {
 };
 
 module.exports.sellStock=async (req, res) => {
+  console.log("sell routes hiit user id:",req.userId)
   try {
     const { symbol, quantity, price, productType } = req.body;
     const userId = req.userId;

@@ -2,6 +2,8 @@ import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import AddFund from "./AddFund";
+import api from "../api/api"
+// const API = "https://zerotrade-eidw.onrender.com";
 
 const Funds = () => {
   const [funds, setFunds] = useState(null);
@@ -11,9 +13,7 @@ const Funds = () => {
   const fetchFunds = async () => {
     try {
        console.log("fetchFunds called");
-      const res = await axios.get("http://localhost:3002/user/funds", {
-        withCredentials: true,
-      });
+      const res = await api.get("/user/funds");
       setFunds(res.data);
     } catch (err) {
       console.error(err);

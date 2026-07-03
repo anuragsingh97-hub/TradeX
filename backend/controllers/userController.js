@@ -1,4 +1,4 @@
-const  FundsModel  = require("../models/FundsModel");
+const FundsModel = require("../models/FundsModel");
 const HoldingsModel = require("../models/HoldingsModel");
 const User = require("../models/UserModel");
 
@@ -88,7 +88,7 @@ module.exports.PortfolioSummary = async (req, res) => {
     const holdings = await HoldingsModel.find({
       userId: req.userId,
     });
-
+    console.log(req.userId);
     let totalInvestment = 0;
     let currentValue = 0;
 

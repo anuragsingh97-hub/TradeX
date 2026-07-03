@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import api from "../api/api"
+// const API = "https://zerotrade-eidw.onrender.com";
 
 function VerifyOtp() {
   const { state } = useLocation();
@@ -14,7 +16,7 @@ function VerifyOtp() {
   const verifyOtp = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post("http://localhost:3002/auth/verify-otp", {
+    const res = await api.post("/auth/verify-otp", {
       email: state.email,
       otp,
     });

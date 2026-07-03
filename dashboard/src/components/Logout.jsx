@@ -5,16 +5,18 @@ import Summary from "./Summary";
 
 import { useNavigate } from "react-router-dom";
 
+import api from "../api/api"
+
+// const API = "https://zerotrade-eidw.onrender.com";
+
 function Logout() {
   const [showMenu, setShowMenu] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3002/user/profile", {
-        withCredentials: true,
-      })
+    api
+      .get("/user/profile")
       .then((res) => {
         setUser(res.data);
         // console.log(res.data);
@@ -27,10 +29,9 @@ function Logout() {
 
   const handleLogout = async () => {
     try {
-      await axios.post(
-        "http://localhost:3002/auth/logout",
+      await api.post(
+        "/auth/logout",
         {},
-        { withCredentials: true },
       );
 
       window.location.href = "http://localhost:5173/login";

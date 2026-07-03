@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifySuccess } from "../utils/utils";
 
+const API = "https://zerotrade-eidw.onrender.com";
 function Signup() {
   const [formData, setFormData] = useState({
     username: "",
@@ -36,7 +37,7 @@ function Signup() {
     }
 
     try {
-      const response = await fetch("http://localhost:3002/auth/signup", {
+      const response = await fetch(`${API}/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -17,6 +17,9 @@ import {
 
 import { DoughnutChart } from "./DoughnoutChart";
 
+// const API = "https://zerotrade-eidw.onrender.com";
+import api from "../api/api"
+
 const WatchList = () => {
   const [allStocks, setallStocks] = useState([]);
   const [search, setSearch] = useState("");
@@ -24,8 +27,8 @@ const WatchList = () => {
   const [showAnalytics, setShowAnalytics] = useState(false);
   useEffect(() => {
     const fetchStocks = () => {
-      axios
-        .get("http://localhost:3002/watchlist")
+      api
+        .get("/watchlist")
         .then((res) => {
           setallStocks(res.data);
         })
@@ -34,7 +37,7 @@ const WatchList = () => {
 
     fetchStocks();
 
-    const interval = setInterval(fetchStocks, 1000);
+    const interval = setInterval(fetchStocks, 2000);
 
     return () => clearInterval(interval);
   }, []);

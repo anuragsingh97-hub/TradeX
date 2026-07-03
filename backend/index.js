@@ -57,6 +57,35 @@ app.get("/history/:symbol", async (req, res) => {
   }
 });
 
+
+// app.delete("/dummy-history", async (req, res) => {
+//   console.log("deletee")
+//   try {
+//     const symbols = ["RELIANCE", "TCS", "INFY","HDFC","SBIN","WIPRO","TATAMOTORS","NIFTY50","SENSEX","ITC"];
+
+//     for (const symbol of symbols) {
+//       // Get the oldest 100 records
+//       const docs = await StockHistory.find({ symbol })
+//         .sort({ time: 1 }) // oldest first
+//         .limit(100);
+
+//       // Delete only those 100
+//       await StockHistory.deleteMany({
+//         _id: { $in: docs.map((doc) => doc._id) },
+//       });
+
+//       console.log(`Deleted ${docs.length} records for ${symbol}`);
+//     }
+
+//     res.json({
+//       success: true,
+//       message: "Deleted up to 100 history records for each stock.",
+//     });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json(err);
+//   }
+// });
 // Update Stock Prices
 function startPriceUpdater() {
   setInterval(async () => {

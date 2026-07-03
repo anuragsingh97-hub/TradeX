@@ -4,6 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifySuccess } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
+import api from "../api/api"
+// const API = "https://zerotrade-eidw.onrender.com";
 
 function Login() {
   const [formData, setformData] = useState({
@@ -16,32 +18,34 @@ function Login() {
   };
 
   const handleSignup = async (e) => {
-    e.preventDefault();
-    if (!formData.email || !formData.password) {
-      return notifyError("Please fill in all fields");
+  e.preventDefault();
+
+  if (!formData.email || !formData.password) {
+    return notifyError("Please fill in all fields");
+  }
+
+  try {
+    const { data } = await api.post("/auth/login", formData);
+
+    console.log(data);
+
+    if (data.success) {
+      notifySuccess(data.message || "Login successful!");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    } else {
+      notifyError(data.message);
     }
-    try {
-      const url = "http://localhost:3002/auth/login";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
-      console.log(data);
-      if (data.success) {
-        notifySuccess(data.message || "Login successful!");
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
-      } else {
-        notifyError(data.message);
-      }
-    } catch (error) {
-      notifyError(error.message || "An error occurred during login");
-    }
-  };
+  } catch (error) {
+    notifyError(
+      error.response?.data?.message ||
+      error.message ||
+      "An error occurred during login"
+    );
+  }
+};
 
   return (
     <div

@@ -4,13 +4,16 @@ import axios from "axios";
 
 
 import Menu from "./Menu";
+import api from "../api/api"
+
+// const API = "https://zerotrade-eidw.onrender.com";
 
 const TopBar = () => {
   const [allStocks, setallStocks] = useState([]);
   useEffect(() => {
     const fetchStocks = () => {
-      axios
-        .get("http://localhost:3002/watchlist")
+      api
+        .get("/watchlist")
         .then((res) => {
           setallStocks(res.data);
         })
@@ -19,7 +22,7 @@ const TopBar = () => {
 
     fetchStocks();
 
-    const interval = setInterval(fetchStocks, 1000);
+    const interval = setInterval(fetchStocks, 2000);
 
     return () => clearInterval(interval);
   }, []);

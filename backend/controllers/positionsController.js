@@ -1,5 +1,6 @@
 const PositionModel=require("../models/PositionsModel");
 module.exports.getPositions=async (req, res) => {
+  console.log("position routes hiit user id:",req.userId)
   try {
     const positions = await PositionModel.find({
       userId: req.userId,

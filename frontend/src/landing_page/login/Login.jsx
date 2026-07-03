@@ -4,6 +4,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifySuccess } from "../utils/utils";
 import Signup from "../signup/Signup";
+
+const API = "https://zerotrade-eidw.onrender.com";
+
 function Login() {
   const [formData, setformData] = useState({
     email: "",
@@ -20,7 +23,7 @@ function Login() {
       return notifyError("Please fill in all fields");
     }
     try {
-      const url = "http://localhost:3002/auth/login";
+      const url = `${API}/auth/login`;
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

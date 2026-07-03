@@ -1,20 +1,23 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import axios from "axios";
 
 import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css"; // reuse same css
+
+import api from "../api/api"
+// const API = "https://zerotrade-eidw.onrender.com";
 
 const SellActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0);
   const [productType, setProductType] = useState("CNC");
   const generalContext = useContext(GeneralContext);
-
+const navigate = useNavigate();
   const handleSellClick = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:3002/orders/sell",
+      const res = await api.post(
+        "/orders/sell",
         {
           symbol: uid,
           quantity: Number(stockQuantity),
@@ -22,14 +25,12 @@ const SellActionWindow = ({ uid }) => {
           productType,
           mode: "SELL",
         },
-        {
-          withCredentials: true,
-        },
       );
 
       //   console.log(res.data);
-      window.location.reload();
+      // window.location.reload();
       generalContext.closeSellWindow();
+      navigate("/orders");
     } catch (err) {
       console.log(err.response?.data || err.message);
     }

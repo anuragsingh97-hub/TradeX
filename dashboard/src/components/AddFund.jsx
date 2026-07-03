@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import "./AddFund.css";
+import api from "../api/api";
+
+// const API = "https://zerotrade-eidw.onrender.com";
 
 const AddFund = ({ action, close, fetchFunds }) => {
   const [amount, setAmount] = useState("");
@@ -8,24 +11,19 @@ const AddFund = ({ action, close, fetchFunds }) => {
     try {
       if (action === "ADD") {
         // console.log("add fund");
-        await axios.post(
-          "http://localhost:3002/user/addfunds",
+        await api.post(
+          "/user/addfunds",
           {
             amount: Number(amount),
           },
-          {
-            withCredentials: true,
-          }
+          
         );
       } else {
-        await axios.post(
-          "http://localhost:3002/user/withdrawfunds",
+        await api.post(
+          "/user/withdrawfunds",
           {
             amount: Number(amount),
           },
-          {
-            withCredentials: true,
-          }
         );
       }
 

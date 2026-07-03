@@ -1,34 +1,42 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
-
+import { useContext } from "react";
 import GeneralContext from "./GeneralContext";
 
 import "./BuyActionWindow.css";
 
+import api from "../api/api";
+
+// const API = "https://zerotrade-eidw.onrender.com";
+
 const BuyActionWindow = ({ uid }) => {
+  const generalContext = useContext(GeneralContext);
   const [stockQuantity, setStockQuantity] = useState(1);
   const [stockPrice, setStockPrice] = useState(0.0);
   const [productType, setProductType] = useState("CNC");
-  const handleBuyClick = () => {
-    axios.post(
-      "http://localhost:3002/orders/buy",
-      {
+const navigate = useNavigate();
+  const handleBuyClick = async () => {
+    
+    console.log("Buy button clicked");
+    try {
+      const res = await api.post("/orders/buy", {
         symbol: uid,
         quantity: Number(stockQuantity),
         price: Number(stockPrice),
         mode: "BUY",
         productType,
-      },
-      {
-        withCredentials: true,
-      },
-    );
+      });
+      generalContext.closeBuyWindow();
+      navigate("/orders");
+    } catch (err) {
+      console.log(err.response?.data || err.message);
+    }
 
-    GeneralContext.closeBuyWindow();
   };
 
+  console.log(stockPrice, stockQuantity, productType);
   const handleCancelClick = () => {
     GeneralContext.closeBuyWindow();
   };
@@ -71,12 +79,12 @@ const BuyActionWindow = ({ uid }) => {
       <div className="buttons">
         <span>Margin required ₹140.65</span>
         <div>
-          <Link className="btn btn-blue" onClick={handleBuyClick}>
+          <button className="btn btn-blue" onClick={handleBuyClick}>
             Buy
-          </Link>
-          <Link to="" className="btn btn-grey" onClick={handleCancelClick}>
+          </button>
+          <button to="" className="btn btn-grey" onClick={handleCancelClick}>
             Cancel
-          </Link>
+          </button>
         </div>
       </div>
     </div>

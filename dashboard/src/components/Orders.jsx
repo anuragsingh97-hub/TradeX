@@ -3,24 +3,26 @@ import { Link } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 import axios, { all } from "axios";
+import api from "../api/api";
+
+// const API = "https://zerotrade-eidw.onrender.com";
 
 const Orders = () => {
   const [allOrders, setallOrders] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3002/orders", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setallOrders(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response?.data);
-      });
-  }, []);
+  const fetchOrders = async () => {
+    try {
+      const { data } = await api.get("/orders");
+      setallOrders(data);
+    } catch (err) {
+      console.log(err.response?.data);
+    }
+  };
 
- console.log(allOrders);
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+  //  console.log(allOrders);
   return (
     <>
       <h3 className="title">Orders ({allOrders.length})</h3>
