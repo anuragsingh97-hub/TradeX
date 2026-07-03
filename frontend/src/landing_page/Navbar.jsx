@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../index.css";
-
+import logo from "../assets/logo.png"; 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -88,8 +88,8 @@ function Navbar() {
               <div>
                 <a href="https://zerotrade-dashboard.netlify.app/login" className="nav-link">
                   <img
-                    src="src/assets/logo.png"
-                    alt=""
+                    src={logo}
+                    alt="logo"
                     style={{ height: "30px", width: "45px" }}
                   />
                   <h5>ZeroTrade</h5>
