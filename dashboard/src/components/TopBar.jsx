@@ -6,7 +6,6 @@ import axios from "axios";
 import Menu from "./Menu";
 import api from "../api/api"
 
-// const API = "https://zerotrade-eidw.onrender.com";
 
 const TopBar = () => {
   const [allStocks, setallStocks] = useState([]);

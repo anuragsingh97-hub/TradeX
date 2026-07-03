@@ -6,7 +6,6 @@ import StockChart from "./StockChart";
 
 import api from "../api/api"
 
-// const API = "https://zerotrade-eidw.onrender.com";
 
 
 function Analytics({ symbol }) {
@@ -39,20 +38,3 @@ function Analytics({ symbol }) {
 
 export default Analytics;
 
-// import React from "react";
-
-// function Analytics({ symbol }) {
-//   return (
-//     <div
-//       style={{
-//         background: "white",
-//         padding: "20px",
-//         marginTop: "20px",
-//       }}
-//     >
-//       <h2>Analytics for {symbol}</h2>
-//     </div>
-//   );
-// }
-
-// export default Analytics;

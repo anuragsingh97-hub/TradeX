@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios, { all } from "axios";
 import { VerticalGraph } from "./VerticalGraph";
 import api from "../api/api"
-// import { holdings } from "../data/data";
-// const API = "https://zerotrade-eidw.onrender.com";
+
 
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);

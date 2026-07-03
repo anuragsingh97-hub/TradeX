@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import AddFund from "./AddFund";
 import api from "../api/api"
-// const API = "https://zerotrade-eidw.onrender.com";
+
 
 const Funds = () => {
   const [funds, setFunds] = useState(null);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import api from "../api/api";
-// const API = "https://zerotrade-eidw.onrender.com";
+
 
 const Summary = () => {
   const [summary, setSummary] = useState({

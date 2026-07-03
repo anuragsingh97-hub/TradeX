@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Profile.css"
 import api from "../api/api"
-// const API = "https://zerotrade-eidw.onrender.com";
+
 
 const Profile = () => {
   const [user, setUser] = useState({});

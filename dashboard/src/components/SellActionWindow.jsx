@@ -6,7 +6,7 @@ import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css"; // reuse same css
 
 import api from "../api/api"
-// const API = "https://zerotrade-eidw.onrender.com";
+
 
 const SellActionWindow = ({ uid }) => {
   const [stockQuantity, setStockQuantity] = useState(1);

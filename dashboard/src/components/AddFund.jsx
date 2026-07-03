@@ -3,8 +3,6 @@ import axios from "axios";
 import "./AddFund.css";
 import api from "../api/api";
 
-// const API = "https://zerotrade-eidw.onrender.com";
-
 const AddFund = ({ action, close, fetchFunds }) => {
   const [amount, setAmount] = useState("");
   const handleSubmit = async () => {

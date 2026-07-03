@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 import api from "../api/api"
 
-// const API = "https://zerotrade-eidw.onrender.com";
 
 function Logout() {
   const [showMenu, setShowMenu] = useState(false);

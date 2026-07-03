@@ -2,8 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios, { all } from "axios";
 import api from "../api/api"
-// import { positions } from "../data/data";
-// const API = "https://zerotrade-eidw.onrender.com";
+
 
 const Positions = () => {
   const [allPositions, setallPositions] = useState([]);

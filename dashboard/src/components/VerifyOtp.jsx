@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import api from "../api/api"
-// const API = "https://zerotrade-eidw.onrender.com";
+
 
 function VerifyOtp() {
   const { state } = useLocation();

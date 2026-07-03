@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import axios, { all } from "axios";
 import api from "../api/api";
 
-// const API = "https://zerotrade-eidw.onrender.com";
 
 const Orders = () => {
   const [allOrders, setallOrders] = useState([]);

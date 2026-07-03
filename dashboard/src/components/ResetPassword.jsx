@@ -4,8 +4,6 @@ import axios from "axios";
 import "./ResetPassword.css";
 import api from "../api/api"
 
-// const API = "https://zerotrade-eidw.onrender.com";
-
 function ResetPassword() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

@@ -3,7 +3,7 @@ import axios from "axios";
 import "./ForgotPassword.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import api from "../api/api"
-// const API = "https://zerotrade-eidw.onrender.com";
+
 
 function ForgotPassword() {
   const navigate = useNavigate();

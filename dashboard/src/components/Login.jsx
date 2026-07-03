@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifySuccess } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api"
-// const API = "https://zerotrade-eidw.onrender.com";
+
 
 function Login() {
   const [formData, setformData] = useState({

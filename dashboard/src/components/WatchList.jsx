@@ -5,7 +5,7 @@ import axios from "axios";
 import GeneralContext from "./GeneralContext";
 import Analytics from "./Analytics";
 import { Tooltip, Grow } from "@mui/material";
-// import TopBar from "./TopBar";
+
 import "../index.css";
 
 import {
@@ -17,7 +17,7 @@ import {
 
 import { DoughnutChart } from "./DoughnoutChart";
 
-// const API = "https://zerotrade-eidw.onrender.com";
+
 import api from "../api/api"
 
 const WatchList = () => {
