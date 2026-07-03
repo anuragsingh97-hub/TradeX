@@ -4,7 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifySuccess } from "../utils/utils";
 
-const API = "https://zerotrade-eidw.onrender.com";
+const API = import.meta.env.VITE_API_URL;
+
 function Signup() {
   const [formData, setFormData] = useState({
     username: "",
