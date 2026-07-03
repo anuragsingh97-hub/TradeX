@@ -2,7 +2,10 @@ const User = require("../models/UserModel");
 const { createSecretToken } = require("../util/SecretToken");
 const bcrypt = require("bcryptjs");
 const FundsModel = require("../models/FundsModel");
-const nodemailer = require("nodemailer");
+const axios = require("axios");
+
+
+// const nodemailer = require("nodemailer");
 // const transporter = nodemailer.createTransport({
 //   service: "gmail",
 //   auth: {
@@ -11,16 +14,15 @@ const nodemailer = require("nodemailer");
 //   },
 // });
 
-
-const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-});
+// const transporter = nodemailer.createTransport({
+//   host: "smtp-relay.brevo.com",
+//   port: 587,
+//   secure: false,
+//   auth: {
+//     user: process.env.EMAIL_USER,
+//     pass: process.env.EMAIL_PASSWORD,
+//   },
+// });
 
 //signup router
 
@@ -167,50 +169,59 @@ module.exports.verifyOTP = async (req, res) => {
 
 //send OTP
 
-module.exports.sendOTP = async (req, res) => {
-  const { email } = req.body;
+// module.exports.sendOTP = async (req, res) => {
+//   const { email } = req.body;
 
-  const user = await User.findOne({ email });
+//   const user = await User.findOne({ email });
 
-  if (!user) {
-    return res.json({
-      success: false,
-      message: "User not found",
-    });
-  }
+//   if (!user) {
+//     return res.json({
+//       success: false,
+//       message: "User not found",
+//     });
+//   }
 
-  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+//   const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-  user.otp = otp;
-  user.otpExpiry = Date.now() + 5 * 60 * 1000;
+//   user.otp = otp;
+//   user.otpExpiry = Date.now() + 5 * 60 * 1000;
 
-  await user.save();
-  console.log(" otp saved in usermodel");
-  try {
-    await transporter.verify();
-    console.log("SMTP connection successful");
-  } catch (err) {
-    console.error("SMTP Verify Error:", err);
-  }
+//   await user.save();
+//   console.log(" otp saved in usermodel");
+//   try {
+//     await transporter.verify();
+//     console.log("SMTP connection successful");
+//   } catch (err) {
+//     console.error("SMTP Verify Error:", err);
+//   }
 
-  try {
-    const info = await transporter.sendMail({
-      from: '"ZeroTrade Support" <anuragksingh52@gmail.com>',
-      to: email,
-      subject: "ZeroTrade Password Reset OTP",
-      html: `
-    <h2>ZeroTrade Password Reset</h2>
-    <p>Your OTP is:</p>
-    <h1>${otp}</h1>
-    <p>This OTP will expire in 5 minutes.</p>
-    <p>If you didn't request this, please ignore this email.</p>
-  `,
-    });
+//   try {
+//     await apiInstance.sendTransacEmail({
+//       sender: {
+//         name: "ZeroTrade Support",
+//         email: "anuragksingh52@gmail.com",
+//       },
 
-    console.log("Email sent:", info);
-  } catch (err) {
-    console.error(err);
-  }
+//       to: [
+//         {
+//           email: email,
+//         },
+//       ],
+
+//       subject: "ZeroTrade Password Reset OTP",
+
+//       htmlContent: `
+//       <h2>ZeroTrade Password Reset</h2>
+//       <p>Your OTP is:</p>
+//       <h1>${otp}</h1>
+//       <p>This OTP expires in 5 minutes.</p>
+//   `,
+//     });
+
+//     console.log("Email sent:", info);
+//   } catch (err) {
+//     console.error(err);
+//   }
   // await transporter.sendMail({
   //   from: `"ZeroTrade Support" <${process.env.EMAIL_USER}>`,
   //   to: email,
@@ -224,8 +235,74 @@ module.exports.sendOTP = async (req, res) => {
   // `,
   // });
 
-  res.json({
-    success: true,
-    message: "OTP sent successfully",
-  });
+//   res.json({
+//     success: true,
+//     message: "OTP sent successfully",
+//   });
+// };
+
+
+module.exports.sendOTP = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    user.otp = otp;
+    user.otpExpiry = Date.now() + 5 * 60 * 1000;
+
+    await user.save();
+
+    const response = await axios.post(
+      "https://api.brevo.com/v3/smtp/email",
+      {
+        sender: {
+          name: "ZeroTrade Support",
+          email: "anuragksingh52@gmail.com",
+        },
+        to: [
+          {
+            email: email,
+          },
+        ],
+        subject: "ZeroTrade Password Reset OTP",
+        htmlContent: `
+          <h2>ZeroTrade Password Reset</h2>
+          <p>Your OTP is:</p>
+          <h1>${otp}</h1>
+          <p>This OTP expires in 5 minutes.</p>
+        `,
+      },
+      {
+        headers: {
+          accept: "application/json",
+          "api-key": process.env.BREVO_API_KEY,
+          "content-type": "application/json",
+        },
+      }
+    );
+
+    console.log(response.data);
+
+    res.json({
+      success: true,
+      message: "OTP sent successfully",
+    });
+  } catch (err) {
+    console.log(err.response?.data || err.message);
+
+    res.status(500).json({
+      success: false,
+      message: "Email sending failed",
+    });
+  }
 };
