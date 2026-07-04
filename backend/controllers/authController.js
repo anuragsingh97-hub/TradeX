@@ -4,7 +4,6 @@ const bcrypt = require("bcryptjs");
 const FundsModel = require("../models/FundsModel");
 const axios = require("axios");
 
-
 // const nodemailer = require("nodemailer");
 // const transporter = nodemailer.createTransport({
 //   service: "gmail",
@@ -108,19 +107,19 @@ module.exports.login = async (req, res, next) => {
 };
 
 //logout
-
 module.exports.logout = async (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: true,
+    sameSite: "none",
+    path: "/",
   });
-  res.status(200).json({
+
+  return res.status(200).json({
     success: true,
     message: "Logged out successfully",
   });
 };
-
 //reser password
 
 module.exports.resetPassword = async (req, res) => {
@@ -222,25 +221,24 @@ module.exports.verifyOTP = async (req, res) => {
 //   } catch (err) {
 //     console.error(err);
 //   }
-  // await transporter.sendMail({
-  //   from: `"ZeroTrade Support" <${process.env.EMAIL_USER}>`,
-  //   to: email,
-  //   subject: "ZeroTrade Password Reset OTP",
-  //   html: `
-  //   <h2>ZeroTrade Password Reset</h2>
-  //   <p>Your OTP is:</p>
-  //   <h1>${otp}</h1>
-  //   <p>This OTP will expire in 5 minutes.</p>
-  //   <p>If you didn't request this, please ignore this email.</p>
-  // `,
-  // });
+// await transporter.sendMail({
+//   from: `"ZeroTrade Support" <${process.env.EMAIL_USER}>`,
+//   to: email,
+//   subject: "ZeroTrade Password Reset OTP",
+//   html: `
+//   <h2>ZeroTrade Password Reset</h2>
+//   <p>Your OTP is:</p>
+//   <h1>${otp}</h1>
+//   <p>This OTP will expire in 5 minutes.</p>
+//   <p>If you didn't request this, please ignore this email.</p>
+// `,
+// });
 
 //   res.json({
 //     success: true,
 //     message: "OTP sent successfully",
 //   });
 // };
-
 
 module.exports.sendOTP = async (req, res) => {
   try {
@@ -288,7 +286,7 @@ module.exports.sendOTP = async (req, res) => {
           "api-key": process.env.BREVO_API_KEY,
           "content-type": "application/json",
         },
-      }
+      },
     );
 
     console.log(response.data);

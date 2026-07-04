@@ -4,10 +4,4 @@ const controller = require("../controllers/holdingsController");
 
 router.get("/", auth, controller.getHoldings);
 
-// router.post("/", auth, controller.createHolding);
-
-// router.put("/:id", auth, controller.updateHolding);
-
-// router.delete("/:id", auth, controller.deleteHolding);
-
 module.exports = router;
