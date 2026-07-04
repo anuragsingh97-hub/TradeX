@@ -5,8 +5,7 @@ import Summary from "./Summary";
 
 import { useNavigate } from "react-router-dom";
 
-import api from "../api/api"
-
+import api from "../api/api";
 
 function Logout() {
   const [showMenu, setShowMenu] = useState(false);
@@ -28,12 +27,9 @@ function Logout() {
 
   const handleLogout = async () => {
     try {
-      await api.post(
-        "/auth/logout",
-        {},
-      );
+      await api.post("/auth/logout", {});
 
-      window.location.href = "https://zerotrade-aksproject.netlify.app/login";
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +55,6 @@ function Logout() {
             <p>{user?.email}</p>
           </div>
           <button className="menu-item" onClick={handleProfile}>
-            
             Profile Details
           </button>
 
