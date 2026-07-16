@@ -4,49 +4,52 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notifyError, notifySuccess } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
-import api from "../api/api"
-
+import api from "../api/api";
 
 function Login() {
   const [formData, setformData] = useState({
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleLogin = (e) => {
     setformData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSignup = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!formData.email || !formData.password) {
-    return notifyError("Please fill in all fields");
-  }
-
-  try {
-    const { data } = await api.post("/auth/login", formData);
-
-    console.log(data);
-
-    if (data.success) {
-      notifySuccess(data.message || "Login successful!");
-
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
-    } else {
-      notifyError(data.message);
+    if (!formData.email || !formData.password) {
+      return notifyError("Please fill in all fields");
     }
-  } catch (error) {
-    notifyError(
-      error.response?.data?.message ||
-      error.message ||
-      "An error occurred during login"
-    );
-  }
-};
 
+    setLoading(true);
+
+    try {
+      const { data } = await api.post("/auth/login", formData);
+
+      console.log(data);
+
+      if (data.success) {
+        notifySuccess(data.message || "Login successful!");
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      } else {
+        notifyError(data.message);
+      }
+    } catch (error) {
+      notifyError(
+        error.response?.data?.message ||
+          error.message ||
+          "An error occurred during login",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div
       className="d-flex flex-column align-items-center justify-content-center"
@@ -101,14 +104,25 @@ function Login() {
           </div>
 
           <button
-            className="btn w-100 text-white"
+            type="submit"
+            disabled={loading}
+            className="btn w-100 text-white d-flex justify-content-center align-items-center"
             style={{
-              backgroundColor: "#ff5722",
+              backgroundColor: loading ? "#ff8a65" : "#ff5722",
               padding: "13px",
               fontSize: "15px",
+              cursor: loading ? "not-allowed" : "pointer",
             }}
           >
-            Login
+            {loading && (
+              <div
+                className="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true"
+              ></div>
+            )}
+
+            {loading ? "Logging in..." : "Login"}
           </button>
 
           <div className="text-center mt-4">
