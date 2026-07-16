@@ -14,10 +14,6 @@ https://zerotrade-aksproject.netlify.app
 ### Dashboard
 https://zerotrade-dashboard.netlify.app
 
-### Backend API
-https://YOUR_RENDER_BACKEND_URL
-
----
 
 ## 📸 Screenshots
 
@@ -51,7 +47,7 @@ https://YOUR_RENDER_BACKEND_URL
 
 ---
 
-### ⭐Analysis
+### Analysis
 
 ![Watchlist](./screenshots/Analysis.png)
 
@@ -63,11 +59,11 @@ https://YOUR_RENDER_BACKEND_URL
 
 ---
 
-### 👤 Buy
+###  Buy
 
 ![Profile](./screenshots/Buy.png)
 
-### 👤 Sell
+###  Sell
 
 ![Profile](./screenshots/Sell.png)
 
