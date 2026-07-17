@@ -68,6 +68,8 @@ function Signup() {
       }
     } catch (error) {
       notifyError(error.message || "An error occurred during signup");
+    } finally {
+      setLoading(false);
     }
   };
 

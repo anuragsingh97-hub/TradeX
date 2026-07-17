@@ -6,9 +6,8 @@ import { notifyError, notifySuccess } from "../utils/utils";
 import Signup from "../signup/Signup";
 const API = import.meta.env.VITE_API_URL;
 
-
 function Login() {
-   const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setformData] = useState({
     email: "",
@@ -21,19 +20,25 @@ function Login() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+
     if (!formData.email || !formData.password) {
       return notifyError("Please fill in all fields");
     }
+
+    setLoading(true);
+
     try {
-      const url = `${API}/auth/login`;
-      const response = await fetch(url, {
+      const response = await fetch(`${API}/auth/login`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         credentials: "include",
         body: JSON.stringify(formData),
       });
+
       const data = await response.json();
-      console.log(data);
+
       if (data.success) {
         notifySuccess(data.message || "Login successful!");
 
@@ -44,7 +49,9 @@ function Login() {
         notifyError(data.message);
       }
     } catch (error) {
-      notifyError(error.message || "An error occurred during login");
+      notifyError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,26 +89,26 @@ function Login() {
         </div>
         {/* <button className="btn btn-primary">Login</button> */}
         <button
-            type="submit"
-            disabled={loading}
-            className="btn w-100 btn-primary"
-            style={{
-              backgroundColor: loading ? "#657cff" : " #007bff",
-              padding: "8px",
-              fontSize: "15px",
-              cursor: loading ? "not-allowed" : "pointer",
-            }}
-          >
-            {loading && (
-              <div
-                className="spinner-border spinner-border-sm me-2"
-                role="status"
-                aria-hidden="true"
-              ></div>
-            )}
+          type="submit"
+          disabled={loading}
+          className="btn w-100 btn-primary"
+          style={{
+            backgroundColor: loading ? "#657cff" : " #007bff",
+            padding: "8px",
+            fontSize: "15px",
+            cursor: loading ? "not-allowed" : "pointer",
+          }}
+        >
+          {loading && (
+            <div
+              className="spinner-border spinner-border-sm me-2"
+              role="status"
+              aria-hidden="true"
+            ></div>
+          )}
 
-            {loading ? "Logging in..." : "Login"}
-          </button>
+          {loading ? "Logging in..." : "Login"}
+        </button>
       </form>
       <ToastContainer />
       <p className="mt-3">
