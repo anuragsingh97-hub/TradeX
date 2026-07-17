@@ -7,6 +7,7 @@ import { notifyError, notifySuccess } from "../utils/utils";
 const API = import.meta.env.VITE_API_URL;
 
 function Signup() {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -59,7 +60,8 @@ function Signup() {
         }, 1000);
       } else if (data.error) {
         notifyError(
-          data.error.details?.[0]?.message || "Signup failed. Please try again."
+          data.error.details?.[0]?.message ||
+            "Signup failed. Please try again.",
         );
       } else {
         notifyError(data.message || "Signup failed. Please try again.");
@@ -155,16 +157,33 @@ function Signup() {
           />
         </div>
 
-        <button className="btn btn-primary w-100">
-          Create Account
+        <button
+          type="submit"
+          disabled={loading}
+          className="btn w-100 btn-primary"
+          style={{
+            backgroundColor: loading ? "#657cff" : " #007bff",
+            padding: "8px",
+            fontSize: "15px",
+            cursor: loading ? "not-allowed" : "pointer",
+          }}
+        >
+          {loading && (
+            <div
+              className="spinner-border spinner-border-sm me-2"
+              role="status"
+              aria-hidden="true"
+            ></div>
+          )}
+
+          {loading ? "Logging in..." : "Signup"}
         </button>
       </form>
 
       <ToastContainer />
 
       <p className="mt-3 text-center">
-        Already have an account?{" "}
-        <Link to="/login">Login</Link>
+        Already have an account? <Link to="/login">Login</Link>
       </p>
     </div>
   );
