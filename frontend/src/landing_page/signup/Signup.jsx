@@ -177,7 +177,7 @@ function Signup() {
             ></div>
           )}
 
-          {loading ? "Logging in..." : "Signup"}
+          {loading ? "Signup in..." : "Signup"}
         </button>
       </form>
 
