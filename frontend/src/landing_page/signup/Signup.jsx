@@ -37,6 +37,7 @@ function Signup() {
     ) {
       return notifyError("Please fill in all fields");
     }
+     setLoading(true);
 
     try {
       const response = await fetch(`${API}/auth/signup`, {
@@ -68,8 +69,6 @@ function Signup() {
       }
     } catch (error) {
       notifyError(error.message || "An error occurred during signup");
-    } finally {
-      setLoading(false);
     }
   };
 
