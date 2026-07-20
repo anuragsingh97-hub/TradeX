@@ -1,41 +1,85 @@
-function LeftSection({ imageURL, productName, productDesription, link }) {
+import React from "react";
+
+function LeftSection({
+  imageURL,
+  productName,
+  productDesription,
+  link,
+}) {
   return (
-    <div className="container mt-5 pt-5">
-      <div className="row align-items-center">
-        <div className="col-1"></div>
-        <div className="col-lg-5 col-md-12 text-center">
-          <img src={imageURL} alt="product" className="img-fluid" />
+    <div className="container py-5">
+      <div className="row align-items-center gy-5">
+
+        {/* Left Spacer (Desktop Only) */}
+        <div className="d-none d-lg-block col-lg-1"></div>
+
+        {/* Product Image */}
+        <div className="col-12 col-lg-5 text-center">
+          <img
+            src={imageURL}
+            alt={productName}
+            className="img-fluid"
+            style={{
+              maxWidth: "100%",
+              height: "auto",
+            }}
+          />
         </div>
-        <div className="col-2"></div>
+
+        {/* Middle Spacer (Desktop Only) */}
+        <div className="d-none d-lg-block col-lg-2"></div>
+
+        {/* Product Details */}
         <div
-          className="col-lg-4 col-md-12 text-muted"
-          style={{ width: "30%", lineHeight: "1.8" }}
+          className="col-12 col-lg-4 text-muted text-center text-lg-start"
+          style={{ lineHeight: "1.8" }}
         >
           <h2>{productName}</h2>
+
           <p>{productDesription}</p>
+
           {link.length > 0 && (
-            <div className="mt-3 d-flex gap-4">
+            <div className="mt-3 d-flex flex-column flex-sm-row gap-3 gap-sm-4 justify-content-center justify-content-lg-start">
               {link
                 .filter((item) => item.label)
                 .map((item, ind) => (
-                  <a className="text-decoration-none" key={ind} href={item.url}>
-                    {item.label} <i className="fa fa-long-arrow-right"></i>
+                  <a
+                    key={ind}
+                    className="text-decoration-none"
+                    href={item.url}
+                  >
+                    {item.label}{" "}
+                    <i className="fa fa-long-arrow-right"></i>
                   </a>
                 ))}
             </div>
           )}
-          <div className="mt-4">
-            <a href={"/"}>
-              <img src="/media/images/googlePlayBadge.svg" alt="" />
+
+          {/* Store Buttons */}
+          <div className="mt-4 d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+            <a href="/">
+              <img
+                src="/media/images/googlePlayBadge.svg"
+                alt="Google Play"
+                className="img-fluid"
+                style={{ maxWidth: "160px" }}
+              />
             </a>
 
-            <a href={"/"} className="ms-3">
-              <img src="/media/images/appstoreBadge.svg" alt="" />
+            <a href="/">
+              <img
+                src="/media/images/appstoreBadge.svg"
+                alt="App Store"
+                className="img-fluid"
+                style={{ maxWidth: "160px" }}
+              />
             </a>
           </div>
         </div>
+
       </div>
     </div>
   );
 }
+
 export default LeftSection;

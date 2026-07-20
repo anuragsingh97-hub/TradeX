@@ -6,26 +6,49 @@ function CreateTicket({ title, icon, link }) {
 
   return (
     <>
-    <div className="tickets-box">
-      <div className="tickets-header" onClick={() => setOpen(!open)}>
-        <div className="d-flex align-items-center">
-          <span className="icon-box"><i class={icon}></i></span>
-          <span style={{fontSize:"18px", opacity:"90%"}} className="ms-3 fs-5 ">{title}</span>
-        </div>
+      <div className="tickets-box mb-2">
+        <div
+          className="tickets-header d-flex justify-content-between align-items-center"
+          onClick={() => setOpen(!open)}
+        >
+          <div className="d-flex align-items-center">
+            <span className="icon-box">
+              <i className={icon}></i>
+            </span>
 
-        <span className={`arrow ${open ? "rotate" : ""}`}><i class="fa fa-angle-down fa-lg"></i></span>
+            <span
+              className="ms-3 fw-normal"
+              style={{
+                fontSize: "clamp(16px,2vw,20px)",
+                opacity: "90%",
+              }}
+            >
+              {title}
+            </span>
+          </div>
+
+          <span className={`arrow ${open ? "rotate" : ""}`}>
+            <i className="fa fa-angle-down fa-lg"></i>
+          </span>
+        </div>
       </div>
 
-     </div>
-     <div className={`tickets-content ${open ? "show" : ""} border`} >
-        <ul className="tickets-link">
-            {link.map((item, ind) => (
-              <a style={{textDecoration:"none"}} href="/"><li key={ind}>{item}</li></a>
-            ))}
+      <div className={`tickets-content ${open ? "show" : ""}`}>
+        <ul className="tickets-link mb-0">
+          {link.map((item, ind) => (
+            <a
+              key={ind}
+              style={{ textDecoration: "none" }}
+              href="/"
+            >
+              <li>{item}</li>
+            </a>
+          ))}
         </ul>
       </div>
+
       <br />
-      </>
+    </>
   );
 }
 

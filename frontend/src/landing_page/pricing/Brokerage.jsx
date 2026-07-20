@@ -3,14 +3,17 @@ import React from "react";
 function Brokerage() {
   return (
     <>
-      <div className="container" style={{ padding: "50px" }}>
-        <span className="fs-3">Equity</span>
-        <span className="fs-3 ms-5">Currency</span>
-        <span className="fs-3 ms-5">Commodity</span>
-        <div className="table-container-1 p-0">
+      <div className="container py-4 px-3 px-md-4 px-lg-5">
+        <div className="d-flex flex-wrap gap-3 gap-md-5 mb-4">
+          <span className="fs-4 fs-md-3">Equity</span>
+          <span className="fs-4 fs-md-3">Currency</span>
+          <span className="fs-4 fs-md-3">Commodity</span>
+        </div>
+
+        <div className="table-responsive table-container-1 p-0">
           <table
-            className="table table-striped border"
-            style={{ height: "600px" }}
+            className="table table-striped border align-middle"
+            style={{ minWidth: "1000px" }}
           >
             <thead>
               <tr>
@@ -21,6 +24,7 @@ function Brokerage() {
                 <th className="col-3">F&O - Options</th>
               </tr>
             </thead>
+
             <tbody>
               <tr>
                 <td>Brokerage</td>
@@ -29,33 +33,51 @@ function Brokerage() {
                 <td>0.03% or Rs. 20/executed order whichever is lower</td>
                 <td>Flat Rs. 20 per executed order</td>
               </tr>
+
               <tr>
                 <td>STT/CTT</td>
                 <td>0.1% on buy & sell</td>
                 <td>0.025% on the sell side</td>
                 <td>0.025% on the sell side</td>
                 <td>
-                  <li>
-                    0.15% of the intrinsic value on options that are bought and
-                    exercised
-                  </li>
-                  <li>0.15% on sell side (on premium)</li>
+                  <ul className="mb-0 ps-3">
+                    <li>
+                      0.15% of the intrinsic value on options that are bought
+                      and exercised
+                    </li>
+                    <li>0.15% on sell side (on premium)</li>
+                  </ul>
                 </td>
               </tr>
+
               <tr>
                 <td>Transaction charges</td>
                 <td>NSE: 0.00307% BSE: 0.00375%</td>
                 <td>NSE: 0.00307% BSE: 0.00375%</td>
                 <td>NSE: 0.00183% BSE: 0</td>
-                <td>NSE: 0.03553% (on premium)BSE: 0.0325% (on premium)</td>
+                <td>
+                  NSE: 0.03553% (on premium)
+                  <br />
+                  BSE: 0.0325% (on premium)
+                </td>
               </tr>
+
               <tr>
                 <td>GST</td>
-                <td>18% on (brokerage + SEBI charges + transaction charges)</td>
-                <td>18% on (brokerage + SEBI charges + transaction charges)</td>
-                <td>18% on (brokerage + SEBI charges + transaction charges)</td>
-                <td>18% on (brokerage + SEBI charges + transaction charges)</td>
+                <td>
+                  18% on (brokerage + SEBI charges + transaction charges)
+                </td>
+                <td>
+                  18% on (brokerage + SEBI charges + transaction charges)
+                </td>
+                <td>
+                  18% on (brokerage + SEBI charges + transaction charges)
+                </td>
+                <td>
+                  18% on (brokerage + SEBI charges + transaction charges)
+                </td>
               </tr>
+
               <tr>
                 <td>SBI charges</td>
                 <td>₹10 / crore</td>
@@ -63,6 +85,7 @@ function Brokerage() {
                 <td>₹10 / crore</td>
                 <td>₹10 / crore</td>
               </tr>
+
               <tr>
                 <td>Stamp charges</td>
                 <td>0.015% or ₹1500 / crore on buy side</td>
@@ -73,8 +96,8 @@ function Brokerage() {
             </tbody>
           </table>
         </div>
-        <p className="text-center fs-4 mt-5 mb-5">
-          {" "}
+
+        <p className="text-center fs-6 fs-md-4 mt-5 mb-5">
           <a style={{ textDecoration: "none" }} href="">
             Calculate your costs upfront
           </a>{" "}

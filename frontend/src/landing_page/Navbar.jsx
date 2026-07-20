@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../index.css";
-import logo from "../assets/logo.png"; 
+import logo from "../assets/logo.png";
+
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
+
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -22,51 +25,83 @@ function Navbar() {
 
   return (
     <nav
-      className="navbar navbar-expand-lg border-bottom"
-      style={{
-        backgroundColor: "#FFF",
-        position: "sticky",
-        top: "0",
-        zIndex: 100,
-      }}
+      className="navbar navbar-expand-lg border-bottom bg-white sticky-top"
+      style={{ zIndex: 100 }}
     >
-      <div className="container p-2">
+      <div className="container">
+
+        {/* Logo */}
         <Link className="navbar-brand" to="/">
           <img
             src="media/images/logo.svg"
-            style={{ width: "25%" }}
             alt="Logo"
+            className="img-fluid"
+            style={{ maxWidth: "140px" }}
           />
         </Link>
 
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ms-auto">
+        {/* Mobile Toggle */}
+        <button
+          className="navbar-toggler border-0 shadow-none"
+          onClick={() => setNavOpen(!navOpen)}
+        >
+          <i className="fa-solid fa-bars fs-4"></i>
+        </button>
+
+        {/* Navigation */}
+        <div
+          className={`collapse navbar-collapse ${
+            navOpen ? "show" : ""
+          }`}
+        >
+          <ul className="navbar-nav ms-auto align-items-lg-center">
+
             <li className="nav-item">
-              <Link className="nav-link" to="/signup">
+              <Link
+                className="nav-link"
+                to="/signup"
+                onClick={() => setNavOpen(false)}
+              >
                 Signup
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/about">
+              <Link
+                className="nav-link"
+                to="/about"
+                onClick={() => setNavOpen(false)}
+              >
                 About
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/product">
+              <Link
+                className="nav-link"
+                to="/product"
+                onClick={() => setNavOpen(false)}
+              >
                 Product
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/pricing">
+              <Link
+                className="nav-link"
+                to="/pricing"
+                onClick={() => setNavOpen(false)}
+              >
                 Pricing
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/support">
+              <Link
+                className="nav-link"
+                to="/support"
+                onClick={() => setNavOpen(false)}
+              >
                 Support
               </Link>
             </li>
@@ -76,26 +111,34 @@ function Navbar() {
                 className="btn border-0 bg-transparent"
                 onClick={() => setMenuOpen(!menuOpen)}
               >
-                <i className="fa-solid fa-bars"></i>
+                <i className="fa-solid fa-bars fs-5"></i>
               </button>
             </li>
+
           </ul>
         </div>
 
+        {/* Mega Menu */}
         {menuOpen && (
           <div className="mega-menu" ref={menuRef}>
             <div className="top-section">
+
               <div>
-                <a href="https://zerotrade-dashboard.netlify.app/login" className="nav-link">
+                <a
+                  href="https://zerotrade-dashboard.netlify.app/login"
+                  className="nav-link"
+                >
                   <img
                     src={logo}
                     alt="logo"
-                    style={{ height: "30px", width: "45px" }}
+                    className="img-fluid mb-2"
+                    style={{ width: "45px" }}
                   />
                   <h5>ZeroTrade</h5>
                   <p>Trading platform</p>
                 </a>
               </div>
+
               <div>
                 <h5>Console</h5>
                 <p>Backoffice</p>
@@ -110,9 +153,11 @@ function Navbar() {
                 <h5>Coin</h5>
                 <p>Mutual funds</p>
               </div>
+
             </div>
 
             <div className="bottom-section">
+
               <div>
                 <h5>Utilities</h5>
                 <p>Calculators</p>
@@ -134,6 +179,7 @@ function Navbar() {
                 <p>Varsity</p>
                 <p>Trading Q&A</p>
               </div>
+
             </div>
           </div>
         )}

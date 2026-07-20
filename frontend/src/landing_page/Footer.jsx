@@ -3,62 +3,135 @@ import React from "react";
 function Footer() {
   return (
     <footer style={{ backgroundColor: "rgb(250, 250, 250)" }}>
-      <div className="container border-top mt-5">
-        <div className="row mt-5">
-          <div className="col">
-            <img src="media/images/logo.svg" style={{ width: "50%" }} />
+      <div className="container border-top mt-5 pb-5">
+        <div className="row mt-5 gy-4">
+          {/* Logo Section */}
+          <div className="col-12 col-sm-6 col-lg-3">
+            <img
+              src="media/images/logo.svg"
+              alt="Logo"
+              className="img-fluid"
+              style={{ maxWidth: "180px", width: "100%" }}
+            />
+
             <p>
               &copy; 2010 - 2024, Not Zerodha Broking Ltd. All rights reserved.
             </p>
-            <i className="fa-brands fa-twitter fs-4" ></i> &nbsp;
-            <i className="fa-brands fa-square-facebook fs-4"></i> &nbsp;
-            <i className="fa-brands fa-instagram fs-4"></i>&nbsp;
-            <i className="fa-brands fa-square-linkedin fs-4"></i>&nbsp;
-            <i className="fa-brands fa-telegram fs-4"></i>
+
+            <div className="d-flex flex-wrap gap-3 mt-3">
+              <i className="fa-brands fa-twitter fs-4"></i>
+              <i className="fa-brands fa-square-facebook fs-4"></i>
+              <i className="fa-brands fa-instagram fs-4"></i>
+              <i className="fa-brands fa-square-linkedin fs-4"></i>
+              <i className="fa-brands fa-telegram fs-4"></i>
+            </div>
           </div>
-          <div className="col">
+
+          {/* Company */}
+          <div className="col-12 col-sm-6 col-lg-3">
             <p className="ak">Company</p>
-            <a className="nav-link text-muted" href="">About</a>
+
+            <a className="nav-link text-muted" href="">
+              About
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">Products</a>
+
+            <a className="nav-link text-muted" href="">
+              Products
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">Pricing</a>
+
+            <a className="nav-link text-muted" href="">
+              Pricing
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">Referral programme</a>
+
+            <a className="nav-link text-muted" href="">
+              Referral programme
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">Careers</a>
+
+            <a className="nav-link text-muted" href="">
+              Careers
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">Zerodha.tech</a>
+
+            <a className="nav-link text-muted" href="">
+              Zerodha.tech
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">Press & media</a>
+
+            <a className="nav-link text-muted" href="">
+              Press & media
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">Zerodha cares (CSR)</a>
+
+            <a className="nav-link text-muted" href="">
+              Zerodha cares (CSR)
+            </a>
             <br />
           </div>
-          <div className="col">
+
+          {/* Support */}
+          <div className="col-12 col-sm-6 col-lg-3">
             <p className="ak">Support</p>
-            <a className="nav-link text-muted" href="">Contact</a>
+
+            <a className="nav-link text-muted" href="">
+              Contact
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">Support portal</a>
+
+            <a className="nav-link text-muted" href="">
+              Support portal
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">Z-Connect blog</a>
+
+            <a className="nav-link text-muted" href="">
+              Z-Connect blog
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">List of charges</a>
+
+            <a className="nav-link text-muted" href="">
+              List of charges
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">Downloads & resources</a>
+
+            <a className="nav-link text-muted" href="">
+              Downloads & resources
+            </a>
             <br />
           </div>
-          <div className="col">
+
+          {/* Account */}
+          <div className="col-12 col-sm-6 col-lg-3">
             <p className="ak">Account</p>
-            <a className="nav-link text-muted" href="">Open an account</a>
+
+            <a className="nav-link text-muted" href="">
+              Open an account
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">Fund transfer</a>
+
+            <a className="nav-link text-muted" href="">
+              Fund transfer
+            </a>
             <br />
-            <a className="nav-link text-muted" href="">60 day challenge</a>
+
+            <a className="nav-link text-muted" href="">
+              60 day challenge
+            </a>
             <br />
           </div>
         </div>
-        <div className="mt-5 text-muted" style={{ fontSize: "14px" }}>
+
+        {/* Disclaimer */}
+        <div
+          className="mt-5 text-muted"
+          style={{
+            fontSize: "14px",
+            lineHeight: "1.8",
+            wordBreak: "break-word",
+          }}
+        >
           <p>
             Zerodha Broking Ltd.: Member of NSE​ &​ BSE – SEBI Registration no.:
             INZ000031633 CDSL: Depository services through Zerodha Securities

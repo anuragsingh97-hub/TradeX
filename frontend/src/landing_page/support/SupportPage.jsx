@@ -7,10 +7,10 @@ function SupportPage() {
   return (
     <>
       <Hero />
-      <div className="container mt-5">
-        <div className="row">
+      <div className="container mt-5 px-3 px-md-4">
+        <div className="row g-4">
           {/* LEFT SIDE */}
-          <div className="col-lg-8">
+          <div className="col-12 col-lg-8">
             <CreateTicket
               title="Account Opening"
               icon="fa fa-plus-circle"
@@ -82,7 +82,7 @@ function SupportPage() {
           </div>
 
           {/* RIGHT SIDE */}
-          <div className="col-lg-4">
+          <div className="col-12 col-lg-4">
             {/* Notice Box */}
             <div className="notice-box mb-4">
               <ul>
